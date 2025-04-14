@@ -7,7 +7,7 @@ def splain(func, a, b, n, x):
     moments = [0] * n
 
     def dFunc2(x):
-        return pow(math.e * math.cos(x)) * (-math.sin(x)) * math.cos(x) + pow(math.e * math.cos(x)) * (-math.cos(x))
+        return pow(math.e, math.cos(x)) * (-math.sin(x)) * math.cos(x) + pow(math.e, math.cos(x)) * (-math.cos(x))
     
     moments[0] = dFunc2(a)
     moments[n - 1] = dFunc2(b)
@@ -16,10 +16,11 @@ def splain(func, a, b, n, x):
     xs = [0] * n
     deltas = [0] * n
     diff = (b - a) / (n - 1)
+    xs[0] = a
     for i in range(1, n):
         xs[i] = a + diff * i
         hs[i] = diff
-        deltas[i] = func(hs[i]) - func(hs[i - 1])
+        deltas[i] = func(xs[i]) - func(xs[i - 1])
 
     a = [0] * (n - 2)
     b = [0] * (n - 2)
@@ -28,7 +29,7 @@ def splain(func, a, b, n, x):
     b[0] = (hs[1] + hs[2]) / 3
     c[0] = hs[2] / 6
     d[0] = deltas[2] / hs[2] - deltas[1] / hs[1] - (hs[1] * moments[0]) / 6 
-    for i in range(2, n - 3):
+    for i in range(2, n - 2):
         a[i - 1] = hs[i] / 6
         b[i - 1] = (hs[i] + hs[i + 1]) / 3
         c[i - 1] = hs[i + 1] / 6
